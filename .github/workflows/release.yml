@@ -160,7 +160,7 @@ jobs:
         tag: ${{ github.ref }}
         token: ${{ secrets.GITHUB_TOKEN }}
         name: Greaseweazle Tools ${{ steps.vars.outputs.ver }}
-        body: "[**Release Notes:**](https://github.com/keirf/greaseweazle/blob/master/RELEASE_NOTES)"
+        body: "[**Release Notes:**](https://github.com/AngelDevIndie/greaseweazle/blob/master/RELEASE_NOTES)"
         draft: false
         prerelease: false
         artifacts: "greaseweazle-${{ steps.vars.outputs.ver }}-win64.zip,greaseweazle-${{ steps.vars.outputs.ver }}-win32.zip,greaseweazle-${{ steps.vars.outputs.ver }}.zip"
