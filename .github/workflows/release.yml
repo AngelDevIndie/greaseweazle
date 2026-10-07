@@ -69,7 +69,7 @@ jobs:
       run: |
         export GW=greaseweazle-${{ steps.vars.outputs.ver }}
         make windist
-        curl -L http://softpres.org/_media/files:spsdeclib_5.1_windows.zip --output ipf.zip
+        curl -L https://www.kryoflux.com/download/spsdeclib_5.1_windows_binary.zip --output ipf.zip
         7z x -oipf ipf.zip
         cp -a ipf/capsimg_binary/CAPSImg.dll $GW/
         rm -rf ipf ipf.zip
@@ -111,7 +111,7 @@ jobs:
       run: |
         export GW=greaseweazle-${{ steps.vars.outputs.ver }}
         make windist
-        curl -L http://softpres.org/_media/files:spsdeclib_5.1_windows.zip --output ipf.zip
+        curl -L https://www.kryoflux.com/download/spsdeclib_5.1_windows_binary.zip --output ipf.zip
         7z x -oipf ipf.zip
         cp -a ipf/capsimg_binary/x64/CAPSImg.dll $GW/
         rm -rf ipf ipf.zip
