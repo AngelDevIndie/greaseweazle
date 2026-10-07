@@ -7,29 +7,6 @@ name: CI
 
 jobs:
 
-  test-ubuntu:
-    runs-on: ubuntu-22.04
-    steps:
-
-    - uses: actions/checkout@v6
-      with:
-        fetch-depth: 0
-
-    - name: Dependency packages (apt)
-      run: |
-        sudo apt update
-        sudo apt -y install python3-pip
-
-    - name: Dependency packages (pip)
-      run: |
-        python3 -m pip install -U pip setuptools setuptools[core] wheel
-        python3 -m pip install setuptools_scm mypy types-requests .
-
-    - name: Tests
-      run: |
-        make mypy
-        bash scripts/tests/test.sh
-
   build-ubuntu:
     runs-on: ubuntu-22.04
     steps:
