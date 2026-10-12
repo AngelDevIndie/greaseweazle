@@ -199,11 +199,30 @@ class SCP(Image):
             if trk_off == 0:
                 continue
 
+            
             # Parse the SCP track header and extract the flux data.
-            thdr = dat[trk_off:trk_off+4+12*nr_revs]
-            sig, tnr = struct.unpack("<3sB", thdr[:4])
+            sig, tnr = struct.unpack("<3sB", dat[trk_off:trk_off+4])
             error.check(sig == b"TRK", "SCP: Missing track signature")
             error.check(tnr == trknr, "SCP: Wrong track number in header")
+
+            # Determine the actual revolution count from this track's
+            # first Track Data Header, not from the global SCP header.
+            first_data_off, = struct.unpack(
+                "<I", dat[trk_off+12:trk_off+16])
+
+            error.check(
+                first_data_off >= 16
+                and (first_data_off - 4) % 12 == 0,
+                "SCP: Invalid first revolution data offset")
+
+            track_revs = (first_data_off - 4) // 12
+
+            error.check(
+                trk_off + first_data_off <= len(dat),
+                "SCP: Track header extends beyond image")
+
+            thdr = dat[trk_off:trk_off+4+12*track_revs]
+
             thdr = thdr[4:] # Remove TRK header
 
             # Strip empty trailing revolutions (old versions of FluxEngine).
